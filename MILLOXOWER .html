@@ -1,36 +1,648 @@
-# This is a basic workflow to help you get started with Actions
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MILLOXOWER — Entiende tu dinero y tus mas grandes sueños </title>
 
-name: CI
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#050914;
+color:#f5f7fb;
+line-height:1.6;
+}
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+a{text-decoration:none;color:inherit}
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+nav{
+height:72px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 6%;
+border-bottom:1px solid #182235;
+background:#070c17;
+position:sticky;
+top:0;
+z-index:10;
+}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+.logo{
+font-size:24px;
+font-weight:800;
+letter-spacing:-1px;
+}
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+.logo span{color:#20d9c3}
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+.navlinks{
+display:flex;
+gap:28px;
+font-size:14px;
+color:#b8c1d1;
+}
+
+.navlinks a:hover{color:#20d9c3}
+
+.btn{
+display:inline-block;
+padding:13px 22px;
+border-radius:9px;
+font-weight:bold;
+border:1px solid #20d9c3;
+transition:.2s;
+}
+
+.btn-primary{
+background:#20d9c3;
+color:#03100e;
+}
+
+.btn-primary:hover{
+transform:translateY(-2px);
+box-shadow:0 0 25px #20d9c355;
+}
+
+.hero{
+min-height:650px;
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:center;
+gap:50px;
+padding:80px 7%;
+background:
+radial-gradient(circle at 80% 35%,#5224a933,transparent 35%),
+radial-gradient(circle at 20% 70%,#00d9c322,transparent 30%);
+}
+
+.badge{
+display:inline-block;
+padding:7px 13px;
+border:1px solid #6339a9;
+border-radius:30px;
+color:#bda0ff;
+font-size:12px;
+margin-bottom:22px;
+}
+
+h1{
+font-size:clamp(42px,5vw,70px);
+line-height:1.05;
+letter-spacing:-3px;
+margin-bottom:25px;
+}
+
+.gradient{
+background:linear-gradient(90deg,#20d9c3,#9c65ff);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.hero p{
+font-size:18px;
+color:#b9c2d2;
+max-width:600px;
+margin-bottom:30px;
+}
+
+.actions{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.dashboard{
+background:#0b1220;
+border:1px solid #26334b;
+border-radius:20px;
+padding:22px;
+box-shadow:0 20px 80px #0008;
+}
+
+.dash-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:20px;
+color:#aab4c6;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+.card{
+background:#111a2a;
+border:1px solid #202d42;
+padding:16px;
+border-radius:12px;
+}
+
+.card small{color:#8995a9}
+.amount{
+font-size:25px;
+font-weight:bold;
+margin-top:5px;
+}
+
+.chart{
+height:170px;
+margin-top:15px;
+display:flex;
+align-items:end;
+gap:8px;
+padding:15px;
+background:#0e1625;
+border-radius:12px;
+}
+
+.bar{
+flex:1;
+background:linear-gradient(#20d9c3,#6544bc);
+border-radius:5px 5px 0 0;
+}
+
+.categories{
+margin-top:15px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.category{
+display:flex;
+justify-content:space-between;
+padding:12px;
+background:#101927;
+border-radius:8px;
+color:#c7cfdb;
+}
+
+section{
+padding:80px 7%;
+}
+
+.section-title{
+text-align:center;
+font-size:38px;
+margin-bottom:45px;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.feature{
+background:#0b1220;
+border:1px solid #1e2a3d;
+padding:30px;
+border-radius:15px;
+}
+
+.icon{
+font-size:30px;
+margin-bottom:15px;
+}
+
+.feature h3{margin-bottom:10px}
+.feature p{color:#9ca8ba}
+
+.steps{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+}
+
+.step{
+text-align:center;
+padding:25px;
+}
+
+.number{
+width:45px;
+height:45px;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:0 auto 15px;
+border-radius:50%;
+background:#20d9c3;
+color:#04110f;
+font-weight:bold;
+}
+
+.launch{
+margin:20px 7% 80px;
+padding:50px;
+border:1px solid #7546c5;
+border-radius:20px;
+background:linear-gradient(120deg,#18102c,#081c21);
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:30px;
+}
+
+.launch h2{font-size:32px}
+.launch p{color:#aeb8c9;margin-top:8px}
+
+footer{
+border-top:1px solid #192436;
+padding:50px 7%;
+color:#8793a7;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:2fr 1fr 1fr 1fr;
+gap:30px;
+}
+
+footer h3,footer h4{
+color:white;
+margin-bottom:12px;
+}
+
+footer p,footer li{
+font-size:14px;
+margin-bottom:7px;
+list-style:none;
+}
+
+@media(max-width:850px){
+nav{padding:0 5%}
+.navlinks{display:none}
+
+.hero{
+grid-template-columns:1fr;
+padding-top:55px;
+}
+
+.cards{
+grid-template-columns:1fr;
+}
+
+.features{
+grid-template-columns:1fr;
+}
+
+.steps{
+grid-template-columns:1fr 1fr;
+}
+
+.launch{
+margin-left:5%;
+margin-right:5%;
+flex-direction:column;
+align-items:flex-start;
+}
+
+.footer-grid{
+grid-template-columns:1fr 1fr;
+}
+}
+
+@media(max-width:500px){
+h1{font-size:43px}
+section{padding:60px 5%}
+.steps{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr}
+.dashboard{padding:14px}
+.categories{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">M<span>ind</span>Money</div>
+
+<div class="navlinks">
+<a href="#inicio">Inicio</a>
+<a href="#funciones">Funciones</a>
+<a href="#como">Cómo funciona</a>
+<a href="#seguridad">Seguridad</a>
+<a href="#proximamente">Próximamente</a>
+</div>
+
+<a href="#comenzar" class="btn btn-primary">Comenzar con una gratis</a>
+</nav>
+
+<main>
+
+<section class="hero" id="inicio">
+
+<div>
+<div class="badge">TUS DECISIONES. TUS HÁBITOS. TU DINERO.</div>
+
+<h1>
+Descubre cuánto gastas en comida,
+<span class="gradient">sin esfuerzo.</span>
+</h1>
+
+<p>
+MILLOXOWER Organiza tus gastos de comida para que puedas
+entender dónde se va tu dinero, descubrir tus hábitos y
+tomar mejores decisiones.
+</p>
+
+<div class="actions">
+<a href="#comenzar" class="btn btn-primary">Comenzar gratis →</a>
+<a href="#como" class="btn">Ver cómo funciona</a>
+</div>
+</div>
+
+<div class="dashboard">
+
+<div class="dash-top">
+<strong>Resumen de comida</strong>
+<span>Este mes⌄</span>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<small>Gastado en comida</small>
+<div class="amount">$486.75</div>
+</div>
+
+<div class="card">
+<small>Promedio diario</small>
+<div class="amount">$15.63</div>
+</div>
+
+<div class="card">
+<small>Días analizados</small>
+<div class="amount">30</div>
+</div>
+
+</div>
+
+<div class="chart">
+<div class="bar" style="height:40%"></div>
+<div class="bar" style="height:65%"></div>
+<div class="bar" style="height:50%"></div>
+<div class="bar" style="height:80%"></div>
+<div class="bar" style="height:60%"></div>
+<div class="bar" style="height:90%"></div>
+<div class="bar" style="height:70%"></div>
+<div class="bar" style="height:100%"></div>
+</div>
+
+<div class="categories">
+
+<div class="category">
+<span>🍽️ Restaurantes</span>
+<strong>$196.40</strong>
+</div>
+
+<div class="category">
+<span>🛒 Supermercados</span>
+<strong>$173.20</strong>
+</div>
+
+<div class="category">
+<span>☕ Cafeterías</span>
+<strong>$63.85</strong>
+</div>
+
+<div class="category">
+<span>🛵 Delivery</span>
+<strong>$49.30</strong>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="seguridad">
+
+<div class="features">
+
+<div class="feature">
+<div class="icon">🔐</div>
+<h3>Privacidad primero</h3>
+<p>
+Tus datos financieros deben permanecer bajo tu control.
+Diseñaremos MILLOXOWER pensando primero en privacidad y seguridad.
+</p>
+</div>
+
+<div class="feature">
+<div class="icon">💳</div>
+<h3>Conexión segura</h3>
+<p>
+La conexión financiera será desarrollada mediante métodos
+seguros y proveedores autorizados.
+</p>
+</div>
+
+<div class="feature">
+<div class="icon">👤</div>
+<h3>Tú tienes el control</h3>
+<p>
+El usuario podrá decidir qué información comparte y administrar
+su conexión.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="funciones">
+
+<h2 class="section-title">
+Todo lo que necesitas <span class="gradient">en un solo lugar</span>
+</h2>
+
+<div class="features">
+
+<div class="feature">
+<div class="icon">💳</div>
+<h3>Conecta tu tarjeta</h3>
+<p>Conecta tus cuentas mediante una infraestructura financiera segura cuando la función esté disponible.</p>
+</div>
+
+<div class="feature">
+<div class="icon">🧠</div>
+<h3>Análisis inteligente</h3>
+<p>MILLOXOWER identifica y organiza los gastos relacionados con comida.</p>
+</div>
+
+<div class="feature">
+<div class="icon">📊</div>
+<h3>Reportes claros</h3>
+<p>Visualiza tus gastos diarios, semanales y mensuales.</p>
+</div>
+
+<div class="feature">
+<div class="icon">🎯</div>
+<h3>Metas de gasto</h3>
+<p>Establece objetivos y observa tu progreso.</p>
+</div>
+
+<div class="feature">
+<div class="icon">💡</div>
+<h3>Recomendaciones</h3>
+<p>Recibe sugerencias basadas en tus propios hábitos de consumo.</p>
+</div>
+
+<div class="feature">
+<div class="icon">🔔</div>
+<h3>Alertas inteligentes</h3>
+<p>Recibe avisos cuando tu gasto aumente significativamente.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="como">
+
+<h2 class="section-title">¿Cómo funciona?</h2>
+
+<div class="steps">
+
+<div class="step">
+<div class="number">1</div>
+<h3>Crea tu cuenta</h3>
+<p>Regístrate en pocos minutos.</p>
+</div>
+
+<div class="step">
+<div class="number">2</div>
+<h3>Conecta tu información</h3>
+<p>Autoriza de forma segura el acceso que corresponda.</p>
+</div>
+
+<div class="step">
+<div class="number">3</div>
+<h3>MILLOXOWER</h3>
+<p>Organizamos tus gastos relacionados con comida y tus sueños echos realidad.</p>
+</div>
+
+<div class="step">
+<div class="number">4</div>
+<h3>Entiende tus hábitos</h3>
+<p>Recibe reportes y recomendaciones.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="proximamente">
+
+<div class="launch">
+
+<div>
+<div class="badge">PRÓXIMAMENTE</div>
+<h2>Dispositivo MILLOXOWER</h2>
+<p>
+Estamos explorando un dispositivo físico que podría complementar
+la experiencia de MILLOXOWER en el futuro.
+</p>
+</div>
+
+<a href="#comenzar" class="btn">Quiero saber más</a>
+
+</div>
+
+</section>
+
+<section id="comenzar">
+
+<div class="launch">
+
+<div>
+<h2>MILLOXOWER está comenzando.</h2>
+<p>
+Sé uno de los primeros usuarios y recibe información cuando
+la primera versión esté disponible.
+</p>
+</div>
+
+<form onsubmit="return registro()">
+<input id="email"
+type="email"
+placeholder="Tu correo electrónico"
+required
+style="padding:14px;border-radius:8px;border:1px solid #34435c;background:#0b1220;color:white;width:240px">
+
+<button class="btn btn-primary" type="submit">
+Avisarme
+</button>
+</form>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+<div class="footer-grid">
+
+<div>
+<h3>MILLOXOWER</h3>
+<p>Entiende tu dinero. Mejora tus hábitos.</p>
+</div>
+
+<div>
+<h4>Producto</h4>
+<ul>
+<li>Funciones</li>
+<li>Cómo funciona</li>
+<li>Precios</li>
+<li>Próximamente</li>
+</ul>
+</div>
+
+<div>
+<h4>Empresa</h4>
+<ul>
+<li>Nosotros</li>
+<li>Contacto</li>
+<li>Blog</li>
+</ul>
+</div>
+
+<div>
+<h4>Legal</h4>
+<ul>
+<li>Privacidad</li>
+<li>Términos</li>
+<li>Seguridad</li>
+</ul>
+</div>
+
+</div>
+
+<br>
+
+<p>© 2030 MILLOXOWER Proyecto en desarrollo.</p>
+
+</footer>
+
+<script>
+function registro(){
+alert("¡Gracias! Te avisaremos cuando MILLOXOWER esté disponible ()
+return true;
+}
+</script>
+
+</body>
+  </html># This is a basic workflow to help you get started with Actions
+
+
